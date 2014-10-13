@@ -1,20 +1,24 @@
-# coding: utf-8↲
-
-require "open-uri"
-require "nokogiri"
+require "./trans.rb"
+require "yaml"
 require "pp"
 
-t = Time.now
+data = YAML.load_file("flower_word.yml")
+out = []
 
-html = open("http://www.okuru-hana.com/40/post_22.html").read
-doc = Nokogiri::HTML.parse(html, nil, nil)
-days = doc.css(".entry-body p")
+data.each do |monses|
+  monses.each_pair do |mon, data_days|
+    data_days.each_pair do |k, flower_datas|
+      flower_datas.each do |flower_data|
+        unless flower_data[:flower_en]
+          flower_data[:flower_en] = Trans.translate_text(flower_data[:flower])
+        end
 
-array = days.map do |day|
-  day.text.split("\n").delete_if{|k| k.empty?}.map do |m|
-    parse = m.match(/^(?<day>.*)\t\t(?<flower>.*)・・・(?<word>.*)/)
-    {day: parse[:day], flower: parse[:flower], word: parse[:word]}
+        sleep(0.01)
+      end
+      puts "#{k}\r"
+    end
   end
 end
 
-pp array.flatten.group_by{|i| i[:day]}["#{t.month}月#{t.day}日"]
+#pp data[9]
+open("flower_word_trans_all.yml", "w") {|f| f.write data.to_yaml}
