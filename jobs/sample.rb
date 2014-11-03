@@ -1,7 +1,9 @@
 current_valuation = 0
 current_karma = 0
 
-SCHEDULER.every '2s' do
+array = ["blue", "green", "red"]
+
+SCHEDULER.every '5s' do
   last_valuation = current_valuation
   last_karma     = current_karma
   current_valuation = rand(100)

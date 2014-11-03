@@ -2,6 +2,12 @@ class Dashing.Number extends Dashing.Widget
   @accessor 'current', Dashing.AnimatedValue
 
   @accessor 'difference', ->
+    $("#hoge").css("background-color", @get('color'));
+
+    if @get('hoge')
+      console.log(@get('hoge'));
+    end
+
     if @get('last')
       last = parseInt(@get('last'))
       current = parseInt(@get('current'))

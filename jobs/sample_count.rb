@@ -1,9 +1,9 @@
 # coding: utf-8
 require "open-uri"
 
-body = open("https://dl.dropboxusercontent.com/u/19230550/sample").read
+array = ["blue", "red", "green"]
 
 SCHEDULER.every '10s' do
-  send_event('sample_count', { value: body })
-  send_event('sample_num', { current: body, last: 100 })
+  # send_event('sample_count', { value: rand })
+  send_event('sample_num', { current: rand(100), last: 100, color: array.sample, hoge: rand(100) })
 end
