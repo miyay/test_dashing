@@ -10,7 +10,10 @@ data.each do |monses|
     data_days.each_pair do |k, flower_datas|
       flower_datas.each do |flower_data|
         unless flower_data[:flower_en]
-          flower_data[:flower_en] = Trans.translate_text(flower_data[:flower])
+          begin
+            flower_data[:flower_en] = Trans.translate_text(flower_data[:flower])
+          rescue
+          end
         end
 
         sleep(0.01)
